@@ -1071,7 +1071,10 @@ select {
 }
 
 .exp-detail {
-  padding: 0 0 28px 172px;
+  padding-top: 0;
+  padding-right: 0;
+  padding-bottom: 28px;
+  padding-left: 172px;   /* aligné avec period(140px) + gap(32px) desktop */
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -1140,39 +1143,6 @@ select {
   top: 0;
   color: var(--accent-40);
   font-family: var(--font-mono);
-}
-
-@media (max-width: 700px) {
-  .exp-toggle {
-    grid-template-columns: 80px 1fr 18px;
-    gap: 16px;
-  }
-  .exp-detail {
-    padding-left: 96px;
-  }
-}
-
-@media (max-width: 500px) {
-  .exp-toggle {
-    grid-template-columns: 1fr auto;
-    grid-template-areas:
-      "head chevron"
-      "period chevron";
-    gap: 8px 16px;
-  }
-  .exp-toggle .exp-period {
-    grid-area: period;
-  }
-  .exp-toggle .exp-head {
-    grid-area: head;
-  }
-  .exp-toggle .exp-chevron {
-    grid-area: chevron;
-    align-self: center;
-  }
-  .exp-detail {
-    padding-left: 0;
-  }
 }
 
 .skills-block {
@@ -2421,16 +2391,61 @@ select.field {
     justify-self: start;
     order: -1;
   }
+
+  /* Fix 2 — gap réduit en single-column (était 48px) */
   .cv-shell {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
+
+  /* Onglets horizontaux scrollables, scrollbar masquée */
   .cv-tabs {
     flex-direction: row;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;         /* Firefox */
+    /* Indicateur de scroll : dégradé sur le bord droit via mask —
+       pas de pseudo-élément absolu pour ne pas perturber le flux */
+    -webkit-mask-image: linear-gradient(to right, black calc(100% - 52px), transparent 100%);
+    mask-image:         linear-gradient(to right, black calc(100% - 52px), transparent 100%);
   }
+  .cv-tabs::-webkit-scrollbar {
+    display: none;                 /* Chrome / Safari / Edge */
+  }
+  .cv-tab {
+    flex-shrink: 0;                /* empêche le rétrécissement */
+    white-space: nowrap;           /* reste sur une seule ligne */
+  }
+
   .cv-sidebar {
     position: static;
+    min-width: 0;          /* grid item : autorise la réduction à 1fr */
   }
+
+  /* Fix 4 — hauteur minimale inutile sur mobile */
+  /* Problème 2 — contenu cv-pane contraint horizontalement */
+  .cv-pane {
+    min-height: unset;
+    overflow-x: hidden;
+    word-break: break-word;
+  }
+
+  /* Fix 3 — colonne période + indentation ajustées pour 700–900 px
+     Alignement : period 120px + gap 20px = 140px → padding-left 140px  */
+  .exp-toggle {
+    grid-template-columns: 120px 1fr 20px;
+    gap: 20px;
+  }
+  .exp-detail {
+    padding-left: 140px;
+  }
+
+  /* Fix 5 — compétences en single-column dès que le cv est single-column */
+  .skill-level {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
   .blog-grid {
     grid-template-columns: 1fr;
   }
@@ -2464,8 +2479,41 @@ select.field {
   .footer-links {
     justify-content: flex-start;
   }
-  .exp-item, .skill-level, .formation-item {
+  /* .skill-level déjà géré dans le breakpoint 900px */
+  .exp-item, .formation-item {
     grid-template-columns: 1fr;
     gap: 6px;
+  }
+}
+
+/* Déclaré après les blocs 900px et 600px pour garantir la priorité
+   cascade : à spécificité égale, la dernière déclaration gagne.       */
+@media (max-width: 768px) {
+  /* Toggle : flux colonne pleine largeur — chevron ancré en haut à droite */
+  .exp-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+    padding: 18px 36px 18px 0;
+  }
+  .exp-chevron {
+    position: absolute;
+    right: 0;
+    top: 20px;
+  }
+  /* Détail : indentation supprimée, pleine largeur */
+  .exp-detail {
+    padding-left: 0;
+    padding-bottom: 20px;
+  }
+  /* Bloc contexte (encadré cyan) : pleine largeur, sans décalage */
+  .exp-context {
+    width: 100%;
+    max-width: 100%;
+  }
+  /* Items de liste : suppression de la contrainte 62ch */
+  .exp-block li {
+    max-width: 100%;
   }
 }
