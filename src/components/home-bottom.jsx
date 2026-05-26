@@ -81,7 +81,7 @@ const CVProfil = () => (
         marginTop: 24,
       }}
     >
-      Disponible en France à partir de septembre 2026 — CDI ou mission.
+      Disponible en France à partir de septembre 2026.
     </p>
   </Reveal>
 );

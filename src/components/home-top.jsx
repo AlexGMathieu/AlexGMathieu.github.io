@@ -139,12 +139,12 @@ export const About = () =>
                 </div>
               </div>
               <div className="stratum stratum-1">
-                <div className="cs-tick">2007</div>
+                <div className="cs-tick">2005</div>
                 <div className="cs-band">
-                  <span className="cs-band-duration">4 ans</span>
-                  <span className="cs-band-label">Formation technique</span>
+                  <span className="cs-band-duration">6 ans</span>
+                  <span className="cs-band-label">Formation initiale</span>
                   <span className="cs-band-detail">
-                    DUT Génie Méca · BSc · Licence pro · dessinateur indus.
+                    DUT Génie Méca · BSc · Licence pro · dessinateur indus. · MSc Innovation Strategy Entrepreneurship
                   </span>
                 </div>
               </div>
@@ -152,7 +152,7 @@ export const About = () =>
             <div className="cs-footer">
               <div className="cs-stat">
                 <span className="cs-stat-label">Terrain</span>
-                <span className="cs-stat-value">12 ans</span>
+                <span className="cs-stat-value">14 ans</span>
               </div>
               <div className="cs-stat">
                 <span className="cs-stat-label">Secteurs</span>
