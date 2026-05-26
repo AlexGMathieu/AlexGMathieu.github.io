@@ -37,7 +37,10 @@ export const CV = ({ onOpenProject }) => {
             <a
               href="#"
               className="btn btn-secondary cv-download"
-              onClick={(e) => e.preventDefault()}
+              onClick={(e) => {
+                e.preventDefault();
+                window.gtag?.('event', 'cv_download');
+              }}
               style={{ width: "100%", justifyContent: "space-between" }}
             >
               Télécharger CV PDF
@@ -620,6 +623,7 @@ export const Contact = () => {
       if (res.ok) {
         setStatus("success");
         setForm({ nom: "", email: "", message: "" });
+        window.gtag?.('event', 'contact_form_submit');
       } else {
         setStatus("error");
       }

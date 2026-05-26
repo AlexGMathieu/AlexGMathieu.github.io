@@ -3,6 +3,7 @@ import { Nav, Footer } from './components/components';
 import { Hero, About, Projects } from './components/home-top';
 import { CV, Blog, Contact } from './components/home-bottom';
 import { ProjectDetailInner, BlogDetail } from './components/detail-pages';
+import { CookieBanner } from './components/cookie-banner';
 
 // ─── URL helpers ────────────────────────────────────────────────────────────
 
@@ -97,6 +98,8 @@ export default function App() {
       )}
 
       {name === 'home' && <Footer onNavigate={navigate} />}
+
+      <CookieBanner />
     </>
   );
 }
