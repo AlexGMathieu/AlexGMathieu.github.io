@@ -5,6 +5,7 @@
     "titre": "DnD AI Companion",
     "statut": "En cours — Phase 1",
     "tags": ["RAG", "Python", "ChromaDB", "NLP", "Streamlit"],
+    "image": "/assets/images/projets/dnd-ai-companion/cover.webp",
     "description": "Moteur de recherche sémantique pour Maîtres du Jeu D&D 5e. Retrouvez n'importe quelle règle, monstre ou sort en langage naturel, en français ou en anglais.",
     "metriques": [
       { "valeur": "0.627", "label": "MRR" },

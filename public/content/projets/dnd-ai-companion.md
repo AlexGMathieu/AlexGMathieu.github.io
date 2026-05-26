@@ -4,6 +4,7 @@ titre: DnD AI Companion
 numero: "01"
 statut: En cours — Phase 1
 domaine: RAG · D&D 5e
+cover: "/assets/images/projets/dnd-ai-companion/cover.webp"
 lede: >
   Moteur de recherche sémantique pour Maîtres du Jeu D&D 5e. Retrouvez
   n'importe quelle règle, monstre ou sort en langage naturel — en français
