@@ -1,0 +1,16 @@
+[
+  {
+    "slug": "dnd-ai-companion",
+    "numero": "01",
+    "titre": "DnD AI Companion",
+    "statut": "En cours — Phase 1",
+    "tags": ["RAG", "Python", "ChromaDB", "NLP", "Streamlit"],
+    "description": "Moteur de recherche sémantique pour Maîtres du Jeu D&D 5e. Retrouvez n'importe quelle règle, monstre ou sort en langage naturel, en français ou en anglais.",
+    "metriques": [
+      { "valeur": "0.627", "label": "MRR" },
+      { "valeur": "81%",   "label": "Coverage" },
+      { "valeur": "150",   "label": "Questions éval." }
+    ],
+    "github": "github.com/AlexGMathieu/dnd-ai-companion"
+  }
+]

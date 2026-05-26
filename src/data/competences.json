@@ -1,0 +1,80 @@
+{
+  "ia": {
+    "operationnel": [
+      "Python (intermédiaire)",
+      "OpenAI API / Anthropic API",
+      "Prompt engineering"
+    ],
+    "apprentissage": [
+      "RAG (pipeline complet)",
+      "ChromaDB",
+      "FastAPI",
+      "Git / GitHub"
+    ],
+    "notions": [
+      "LangChain / LangGraph",
+      "Gradio",
+      "Docker",
+      "React / JavaScript",
+      "CrewAI / AutoGen",
+      "n8n",
+      "AWS / GCP / Azure",
+      "MLOps / CI-CD",
+      "Fine-tuning (QLoRA)",
+      "RAGAS"
+    ]
+  },
+  "marketing": [
+    {
+      "titre": "Stratégie B2B industriel",
+      "competences": [
+        "Positionnement de marque et segmentation",
+        "Plan marketing et go-to-market",
+        "Analyse de marché et veille technologique",
+        "Business case et évaluation de potentiel",
+        "ROI et pilotage de la performance",
+        "Pilotage budgétaire"
+      ]
+    },
+    {
+      "titre": "Marketing digital",
+      "competences": [
+        "SEO technique et éditorial",
+        "Marketing automation (Plezi)",
+        "Scoring et nurturing de leads",
+        "Google Analytics",
+        "Search Console",
+        "WordPress"
+      ]
+    },
+    {
+      "titre": "Contenu et production",
+      "competences": [
+        "Rédaction technique bilingue FR/EN",
+        "Cas clients, livres blancs, articles",
+        "Pilotage productions vidéo et photo",
+        "Supports commerciaux (brochures, pitch decks)",
+        "Photoshop · InDesign · Premiere Pro · Blender"
+      ]
+    },
+    {
+      "titre": "Innovation et méthodologies",
+      "competences": [
+        "Lean Startup (implémentation terrain)",
+        "Business Model Generation (Osterwalder, Zurich 2013)",
+        "Design Thinking",
+        "Customer development",
+        "Facilitation d'ateliers multi-divisions"
+      ]
+    },
+    {
+      "titre": "Technique industriel",
+      "competences": [
+        "Modélisation 3D (CATIA V5, SolidWorks)",
+        "Dessin industriel",
+        "Programmation CN",
+        "Connaissance des environnements ATEX"
+      ]
+    }
+  ]
+}
