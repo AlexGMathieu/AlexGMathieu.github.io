@@ -81,7 +81,7 @@ const CVProfil = () => (
         marginTop: 24,
       }}
     >
-      Disponible en France à partir de septembre 2026.
+      Disponible en Bourgogne et Rhône-Alpes à partir de septembre 2026.
     </p>
   </Reveal>
 );
@@ -572,21 +572,63 @@ export const Blog = ({ onOpenPost }) => {
 
 // ===== Contact =====
 
+// Obfuscation email anti-bot — technique CSS direction:rtl
+// L'email est stocké renversé dans le DOM ; unicodeBidi + direction:rtl
+// le restitue correctement à l'affichage pour les humains.
+// String.fromCharCode(64) évite le caractère "@" littéral dans le bundle.
+const _at = String.fromCharCode(64);
+// "alexandre.g.mathieu@outlook.fr" renversé caractère par caractère
+const _emailRev = `rf.kooltuo${_at}ueihtam.g.erdnaxela`;
+const _emailHref = `mailto:alexandre.g.mathieu${_at}outlook.fr`;
+
+const EmailObfuscated = ({ className }) => (
+  <a className={className} href={_emailHref}>
+    <span style={{ unicodeBidi: "bidi-override", direction: "rtl" }}>
+      {_emailRev}
+    </span>
+    <span className="contact-link-label">email</span>
+  </a>
+);
+
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xqejyjje";
+
 export const Contact = () => {
   const [form, setForm] = React.useState({
     nom: "",
     email: "",
     message: "",
   });
-  const [sent, setSent] = React.useState(false);
+  // "idle" | "submitting" | "success" | "error"
+  const [status, setStatus] = React.useState("idle");
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    setSent(true);
-    setTimeout(() => {
-      setForm({ nom: "", email: "", message: "" });
-    }, 200);
+    setStatus("submitting");
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nom: form.nom,
+          email: form.email,
+          message: form.message,
+          _gotcha: "",          // honeypot — doit rester vide
+        }),
+      });
+
+      if (res.ok) {
+        setStatus("success");
+        setForm({ nom: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
   };
+
+  const isSubmitting = status === "submitting";
 
   return (
     <section className="section" id="contact">
@@ -597,14 +639,11 @@ export const Contact = () => {
             <h3 className="contact-lead">Construisons quelque&nbsp;chose.</h3>
             <p className="contact-sub">
               Je suis en recherche active d'un poste de développeur
-              d'applications IA, disponible en France à partir de septembre
-              2026. Ouvert aux opportunités en CDI ou en mission.
+              d'applications IA, disponible en France (Bourgogne et Rhône-Aples) à partir de septembre
+              2026.
             </p>
             <div className="contact-links">
-              <a className="contact-link" href="mailto:alexandre.g.mathieu@outlook.fr">
-                <span>alexandre.g.mathieu@outlook.fr</span>
-                <span className="contact-link-label">email</span>
-              </a>
+              <EmailObfuscated className="contact-link" />
               <a
                 className="contact-link"
                 href="https://linkedin.com/in/alexandre-g-mathieu"
@@ -627,12 +666,23 @@ export const Contact = () => {
           </Reveal>
 
           <Reveal delay={100}>
-            <form className="form" onSubmit={submit}>
+            <form className="form" onSubmit={submit} noValidate>
+              {/* Honeypot anti-spam — doit rester invisible et vide */}
+              <input
+                type="text"
+                name="_gotcha"
+                style={{ display: "none" }}
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+              />
+
               <div className="form-row split">
                 <div className="form-row">
                   <label className="field-label">Nom</label>
                   <input
                     className="field"
+                    name="nom"
                     value={form.nom}
                     onChange={(e) => setForm({ ...form, nom: e.target.value })}
                     required
@@ -643,6 +693,7 @@ export const Contact = () => {
                   <input
                     className="field"
                     type="email"
+                    name="email"
                     value={form.email}
                     onChange={(e) =>
                       setForm({ ...form, email: e.target.value })
@@ -655,6 +706,7 @@ export const Contact = () => {
                 <label className="field-label">Message</label>
                 <textarea
                   className="field"
+                  name="message"
                   value={form.message}
                   onChange={(e) =>
                     setForm({ ...form, message: e.target.value })
@@ -667,14 +719,24 @@ export const Contact = () => {
                 <span className="form-note">
                   Réponse sous 48h en semaine
                 </span>
-                <button className="btn btn-primary" type="submit">
-                  Envoyer
-                  <span className="btn-arrow">→</span>
+                <button
+                  className="btn btn-primary"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Envoi en cours…" : "Envoyer"}
+                  {!isSubmitting && <span className="btn-arrow">→</span>}
                 </button>
               </div>
-              {sent && (
+
+              {status === "success" && (
                 <div className="form-success">
                   // message envoyé — merci, je reviens vers vous très vite.
+                </div>
+              )}
+              {status === "error" && (
+                <div className="form-error">
+                  // erreur lors de l'envoi — réessayez ou contactez-moi directement par email.
                 </div>
               )}
             </form>
@@ -682,7 +744,7 @@ export const Contact = () => {
         </div>
         <div className="section-meta">
           <span>section/07 · contact</span>
-          <span>cdi · mission · france</span>
+          <span>Disponible CDI · Bourgogne / Rhône-Alpes · sept 2026</span>
         </div>
       </div>
     </section>

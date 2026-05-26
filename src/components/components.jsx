@@ -140,7 +140,7 @@ export const Footer = ({ onNavigate }) =>
         )}
         </div>
         <div className="footer-stack" style={{ textAlign: "right" }}>
-          construit avec <span className="accent">[stack]</span>
+          construit avec <span className="accent">[Claude Code · GitHub Pages]</span>
         </div>
       </div>
     </div>
