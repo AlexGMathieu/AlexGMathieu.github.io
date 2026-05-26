@@ -24,7 +24,6 @@ export const Hero = () =>
             J'ai passé 12 ans dans le marketing industriel.
             <br />
             Puis ChatGPT est arrivé et j'ai décidé de rejoindre
-            <br />
             le côté obscur plutôt que de me faire bouffer.
           </p>
           <div className="hero-ctas">
@@ -192,7 +191,9 @@ export const Projects = ({ onOpenProject }) => {
                 role="link"
               >
                 <div className="project-card-image" aria-hidden>
-                  Image
+                  {p.image
+                    ? <img src={p.image} alt={p.titre} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                    : `// projet ${p.numero}`}
                 </div>
                 <div className="project-header">
                   <div>

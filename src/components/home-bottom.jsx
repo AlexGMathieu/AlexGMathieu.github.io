@@ -471,8 +471,9 @@ const BLOG_POSTS = [
     cats: ["Reconversion"],
     title:
       "Pourquoi j'ai quitté le marketing pour apprendre à coder à 39 ans",
-    date: "2026 · à paraître",
-    readTime: "8 min",
+    date: "26/05/2026",
+    readTime: "4 min",
+    image: "/assets/images/blog/marketing-vers-code-39-ans/cover.webp"
   },
   {
     slug: "premier-projet-ds-chatgpt",
@@ -541,7 +542,9 @@ export const Blog = ({ onOpenPost }) => {
               role="link"
             >
               <div className="blog-card-image" aria-hidden>
-                Image
+                {p.image
+                  ? <img src={p.image} alt={p.title} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                  : `#${p.num}`}
               </div>
               <div className="blog-card-meta">
                 <span style={{ color: "var(--accent-40)" }}>#{p.num}</span>

@@ -157,8 +157,7 @@ export const ProjectDetailInner = ({ id, onNavigate }) => {
 
   return (
     <main>
-      <div className="project-banner-image" aria-hidden>Image</div>
-      <header className="detail-header with-banner">
+      <header className="detail-header">
         <div className="container">
           <button className="detail-back"
                   onClick={() => onNavigate({ name: 'home', scrollTo: 'projects' })}>
@@ -201,6 +200,12 @@ export const ProjectDetailInner = ({ id, onNavigate }) => {
           )}
         </div>
       </header>
+
+      {fm.cover && (
+        <div className="container">
+          <img src={fm.cover} alt="" className="detail-cover" />
+        </div>
+      )}
 
       {sections.map((s) => (
         <DetailSection key={s.num} num={s.num} label={s.label} title={s.titre}>
@@ -265,7 +270,9 @@ export const BlogDetail = ({ slug, onNavigate }) => {
             <span>{fm.lecture}</span>
           </div>
           <h1 className="detail-title">{fm.titre}</h1>
-          <div className="article-hero-image" aria-hidden>Image</div>
+          {fm.cover && (
+            <img src={fm.cover} alt="" className="detail-cover" />
+          )}
         </div>
       </header>
 
