@@ -44,14 +44,17 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* Bloquer le scroll horizontal global.
-     overflow-x: clip ne crée pas de BFC : préserve position:fixed
-     et ne bloque pas les événements touch (contrairement à hidden) */
-  overflow-x: clip;
 }
 
+/* html: hidden contrôle la scrollbar viewport (seul moyen fiable) */
+html {
+  overflow-x: hidden;
+}
+
+/* body: clip évite la BFC de hidden — préserve position:fixed et les touch events */
 body {
   font-feature-settings: "ss01", "cv11";
+  overflow-x: clip;
 }
 
 /* Point de montage React — même raison que ci-dessus */
@@ -1023,8 +1026,12 @@ select {
   transition: color 200ms;
 }
 
-.exp-toggle:hover .exp-role {
-  color: var(--accent);
+/* hover uniquement sur dispositifs avec pointeur précis — évite
+   le "sticky hover" après tap sur mobile (couleur cyan persistante) */
+@media (hover: hover) {
+  .exp-toggle:hover .exp-role {
+    color: var(--accent);
+  }
 }
 
 .exp-head {
@@ -2531,4 +2538,5 @@ select.field {
     max-width: 100%;
   }
 }
+
 
