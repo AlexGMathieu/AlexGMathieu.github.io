@@ -2529,3 +2529,6 @@ select.field {
     max-width: 100%;
   }
 }
+
+/* ===== DEBUG — À RETIRER après identification ===== */
+* { outline: 1px solid red; }
