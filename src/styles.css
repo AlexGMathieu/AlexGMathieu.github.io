@@ -44,17 +44,19 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* Bloquer le scroll horizontal global */
-  overflow-x: hidden;
+  /* Bloquer le scroll horizontal global.
+     overflow-x: clip ne crée pas de BFC : préserve position:fixed
+     et ne bloque pas les événements touch (contrairement à hidden) */
+  overflow-x: clip;
 }
 
 body {
   font-feature-settings: "ss01", "cv11";
 }
 
-/* Point de montage React : contenir tout débordement horizontal */
+/* Point de montage React — même raison que ci-dessus */
 #root {
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 ::selection {
@@ -2430,7 +2432,7 @@ select.field {
   .cv-pane {
     min-height: unset;
     max-width: 100%;        /* ne dépasse pas la colonne de la grille */
-    overflow-x: hidden;
+    overflow-x: clip;       /* clip : ne crée pas de BFC, préserve les bordures */
     word-break: break-word;
   }
 
@@ -2530,5 +2532,3 @@ select.field {
   }
 }
 
-/* ===== DEBUG — À RETIRER après identification ===== */
-* { outline: 1px solid red; }
