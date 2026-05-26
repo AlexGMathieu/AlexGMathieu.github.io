@@ -44,10 +44,17 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  /* Bloquer le scroll horizontal global */
+  overflow-x: hidden;
 }
 
 body {
   font-feature-settings: "ss01", "cv11";
+}
+
+/* Point de montage React : contenir tout débordement horizontal */
+#root {
+  overflow-x: hidden;
 }
 
 ::selection {
@@ -2403,29 +2410,26 @@ select.field {
     flex-direction: row;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;         /* Firefox */
-    /* Indicateur de scroll : dégradé sur le bord droit via mask —
-       pas de pseudo-élément absolu pour ne pas perturber le flux */
-    -webkit-mask-image: linear-gradient(to right, black calc(100% - 52px), transparent 100%);
-    mask-image:         linear-gradient(to right, black calc(100% - 52px), transparent 100%);
+    scrollbar-width: none;  /* Firefox */
+    min-width: 0;           /* flex item : autorise la réduction sous la taille du contenu */
+    /* mask-image supprimé : interférait avec overflow-x sur iOS Safari */
   }
   .cv-tabs::-webkit-scrollbar {
-    display: none;                 /* Chrome / Safari / Edge */
+    display: none;          /* Chrome / Safari / Edge */
   }
   .cv-tab {
-    flex-shrink: 0;                /* empêche le rétrécissement */
-    white-space: nowrap;           /* reste sur une seule ligne */
+    flex-shrink: 0;         /* empêche le rétrécissement */
+    white-space: nowrap;    /* reste sur une seule ligne */
   }
 
   .cv-sidebar {
     position: static;
-    min-width: 0;          /* grid item : autorise la réduction à 1fr */
+    min-width: 0;           /* grid item : autorise la réduction à 1fr */
   }
 
-  /* Fix 4 — hauteur minimale inutile sur mobile */
-  /* Problème 2 — contenu cv-pane contraint horizontalement */
   .cv-pane {
     min-height: unset;
+    max-width: 100%;        /* ne dépasse pas la colonne de la grille */
     overflow-x: hidden;
     word-break: break-word;
   }
@@ -2483,6 +2487,14 @@ select.field {
   .exp-item, .formation-item {
     grid-template-columns: 1fr;
     gap: 6px;
+  }
+  /* lang-row : colonne de 200px trop large sur mobile */
+  .lang-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .lang-level {
+    text-align: left;
   }
 }
 
