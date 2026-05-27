@@ -4,7 +4,7 @@ titre: Comment j'ai fait ma reconversion
 categories: [Reconversion]
 date: "27/05/2026"
 lecture: 7 min
-cover: /assets/images/blog/marketing-vers-code-39-ans/cover.webp
+cover: /assets/images/blog/comment-jai-fait-ma-reconversion/cover.webp
 ---
 
 ## 01 · Le départ · Partir vite, mal partir.
