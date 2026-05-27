@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Alexandre Mathieu</title>
+    <script>
+      /**
+       * GitHub Pages SPA — redirection 404
+       *
+       * GitHub Pages sert ce fichier pour toute URL sans fichier physique
+       * correspondant (ex: /blog/mon-article, /project/mon-projet).
+       *
+       * On encode le chemin demandé dans le paramètre ?p= puis on redirige
+       * vers la racine / que GitHub Pages sert bien (index.html).
+       * Le script dans index.html décrypte ce paramètre et restaure l'URL
+       * propre avant que React ne monte — routeFromUrl() lit alors le bon
+       * pathname et affiche directement la bonne page.
+       */
+      (function () {
+        var l = window.location;
+        l.replace(
+          l.origin + '/?p=' + encodeURIComponent(l.pathname) +
+          (l.search ? '&q=' + encodeURIComponent(l.search.slice(1)) : '')
+        );
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

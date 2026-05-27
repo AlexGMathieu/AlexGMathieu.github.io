@@ -2513,6 +2513,75 @@ select.field {
   .exp-block li {
     max-width: 100%;
   }
+
+  /* ── Blog/projet detail — anti-débordement mobile ──────────────────────
+     Les classes réelles dans detail-pages.jsx sont .detail-header,
+     .detail-section, .detail-prose et .detail-cover.
+     On bloque tout débordement horizontal sur ces conteneurs et leurs
+     enfants inline (images, tableaux, blocs de code, texte long).     */
+
+  /* Conteneurs principaux */
+  .detail-header,
+  .detail-section {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  /* Image de couverture */
+  .detail-cover {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Corps de l'article (prose Markdown rendu en HTML) */
+  .detail-prose {
+    overflow-x: hidden;
+    word-break: break-word;
+    max-width: 100%;
+  }
+
+  /* Paragraphes : on lève la contrainte 68ch sur mobile */
+  .detail-prose p {
+    max-width: 100%;
+    word-break: break-word;
+  }
+
+  /* Images dans le corps de l'article */
+  .detail-prose img {
+    max-width: 100%;
+    height: auto;
+    overflow-x: hidden;
+  }
+
+  /* Tableaux : scroll interne plutôt que débordement */
+  .detail-prose table {
+    max-width: 100%;
+    overflow-x: auto;
+    display: block;
+    word-break: break-word;
+  }
+
+  /* Blocs de code */
+  .detail-prose pre,
+  .code-block {
+    max-width: 100%;
+    overflow-x: auto;
+    word-break: normal;   /* ne pas casser les mots dans le code */
+  }
+
+  /* Titres et textes inline */
+  .detail-prose h1,
+  .detail-prose h2,
+  .detail-prose h3,
+  .detail-prose h4,
+  .detail-prose li,
+  .detail-prose blockquote,
+  .blog-detail-meta,
+  .detail-title,
+  .detail-eyebrow {
+    max-width: 100%;
+    word-break: break-word;
+  }
 }
 
 /* ===== Cookie Banner ===== */

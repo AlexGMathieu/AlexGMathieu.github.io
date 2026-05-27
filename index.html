@@ -23,6 +23,20 @@
       gtag('consent', 'default', { analytics_storage: 'denied' });
       gtag('config', 'G-ZVXFRV9Z3V');
     </script>
+    <!-- GitHub Pages SPA — restauration de l'URL
+         Doit s'exécuter de façon synchrone, avant le module React,
+         pour que routeFromUrl() dans App.jsx lise le bon pathname. -->
+    <script>
+      (function () {
+        var params = new URLSearchParams(window.location.search);
+        var p = params.get('p');
+        if (!p) return;
+        // Reconstruit l'URL propre à partir des paramètres encodés par 404.html
+        var q = params.get('q');
+        var url = decodeURIComponent(p) + (q ? '?' + decodeURIComponent(q) : '');
+        window.history.replaceState(null, '', url);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
