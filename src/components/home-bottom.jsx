@@ -476,13 +476,14 @@ const BLOG_POSTS = [
     image: "/assets/images/blog/marketing-vers-code-39-ans/cover.webp"
   },
   {
-    slug: "premier-projet-ds-chatgpt",
+    slug: "comment-jai-fait-ma-reconversion",
     num: "02",
-    cats: ["Reconversion", "Projets"],
+    cats: ["Reconversion"],
     title:
-      "Mon premier projet data science : ce que ChatGPT a fait à ma place et ce que ça m'a appris",
-    date: "2026 · à paraître",
-    readTime: "12 min",
+      "Comment j'ai fait ma reconversion",
+    date: "27/05/2026",
+    readTime: "7 min",
+    image: "/assets/images/blog/comment-jai-fait-ma-reconversion/cover.webp"
   },
   {
     slug: "rag-probleme-de-donnees",

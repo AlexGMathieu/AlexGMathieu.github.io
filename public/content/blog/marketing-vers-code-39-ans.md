@@ -2,7 +2,7 @@
 slug: marketing-vers-code-39-ans
 titre: Pourquoi j'ai quitté le marketing pour apprendre à coder à 39 ans
 categories: [Reconversion]
-date: "2026"
+date: "26/05/2026"
 lecture: 4 min
 cover: /assets/images/blog/marketing-vers-code-39-ans/cover.webp
 ---
