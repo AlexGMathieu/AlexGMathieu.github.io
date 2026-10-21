@@ -1,7 +1,8 @@
 # Alexandre Mathieu
 
 > Développeur d'applications IA, en reconversion après 12 ans de marketing B2B industriel. Portfolio : projets RAG (Python, ChromaDB, OpenAI), articles de blog sur la reconversion et sur les pipelines RAG.
-Le site https://alexgmathieu.github.io/ est une application React : le texte n'apparaît qu'après exécution de JavaScript. Les sources ci-dessous sont des fichiers Markdown servis en clair et lisibles sans JavaScript.
+
+Les pages du site (https://alexgmathieu.github.io/) sont pré-rendues en HTML. Les sources ci-dessous sont les fichiers Markdown bruts des projets et articles, servis en clair.
 
 ## Projets
 

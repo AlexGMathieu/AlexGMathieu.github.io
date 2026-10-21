@@ -12,7 +12,7 @@ import yaml from 'js-yaml';
  * Section heading convention: ## {num} · {label} · {titre}
  * Visual block placeholders:  <!-- clé_frontmatter -->
  */
-function parseMarkdown(raw) {
+export function parseMarkdown(raw) {
   // 1. Split frontmatter
   const fmMatch = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
   if (!fmMatch) return { frontmatter: {}, sections: [] };
@@ -58,6 +58,20 @@ function parseMarkdown(raw) {
   return { frontmatter, sections };
 }
 
+// ─── Prerendered data ────────────────────────────────────────────────────────
+
+/**
+ * At build time, scripts/prerender.mjs fills globalThis.__MD_CACHE__ before
+ * rendering to HTML, and embeds the same object in the page as
+ * window.__MD_CACHE__. A page that was prerendered therefore shows its content
+ * immediately instead of fetching the Markdown file again.
+ * Returns { frontmatter, sections } or null.
+ */
+function readPreloaded(url) {
+  const cache = globalThis.__MD_CACHE__;
+  return url && cache && cache[url] ? cache[url] : null;
+}
+
 // ─── Hook ────────────────────────────────────────────────────────────────────
 
 /**
@@ -67,9 +81,11 @@ function parseMarkdown(raw) {
  */
 export function useMarkdownPage(url) {
   const [state, setState] = useState({ status: 'loading', frontmatter: {}, sections: [] });
+  // Same object on every render (it lives in the cache), so it is safe as a dependency.
+  const pre = readPreloaded(url);
 
   useEffect(() => {
-    if (!url) return;
+    if (!url || pre) return;
     setState({ status: 'loading', frontmatter: {}, sections: [] });
 
     let cancelled = false;
@@ -88,7 +104,8 @@ export function useMarkdownPage(url) {
       });
 
     return () => { cancelled = true; };
-  }, [url]);
+  }, [url, pre]);
 
+  if (pre) return { status: 'ok', frontmatter: pre.frontmatter, sections: pre.sections };
   return state;
 }

@@ -15,7 +15,8 @@ function routeToUrl(route) {
 
 // Parse the current URL into a route object (used on initial load / refresh).
 function routeFromUrl() {
-  const { pathname } = window.location;
+  // GitHub Pages serves prerendered pages with a trailing slash (/blog/slug/).
+  const pathname = window.location.pathname.replace(/\/+$/, '') || '/';
   const project = pathname.match(/^\/project\/(.+)/);
   if (project) return { name: 'project', id: project[1] };
   const blog = pathname.match(/^\/blog\/(.+)/);
