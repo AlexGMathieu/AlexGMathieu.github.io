@@ -1,0 +1,29 @@
+# Alexandre Mathieu
+
+> Développeur d'applications IA, en reconversion après 12 ans de marketing B2B industriel. Portfolio : projets RAG (Python, ChromaDB, OpenAI), articles de blog sur la reconversion et sur les pipelines RAG.
+Le site https://alexgmathieu.github.io/ est une application React : le texte n'apparaît qu'après exécution de JavaScript. Les sources ci-dessous sont des fichiers Markdown servis en clair et lisibles sans JavaScript.
+
+## Projets
+
+- [DnD AI Companion](https://alexgmathieu.github.io/content/projets/dnd-ai-companion.md): moteur de recherche sémantique (RAG) pour Maîtres du Jeu D&D 5e. Python, ChromaDB, Streamlit, OpenAI. Environ 12 000 entrées, 14 parsers, évaluation sur 150 questions (MRR 0.627, coverage 81%). Code : https://github.com/AlexGMathieu/dnd-ai-companion
+
+## Blog
+
+- [Pourquoi j'ai quitté le marketing pour apprendre à coder à 39 ans](https://alexgmathieu.github.io/content/blog/marketing-vers-code-39-ans.md): le déclic après l'arrivée de ChatGPT et le choix de construire les outils plutôt que de les subir.
+- [Comment j'ai fait ma reconversion](https://alexgmathieu.github.io/content/blog/comment-jai-fait-ma-reconversion.md): bilan honnête du parcours de reconversion, du choix du bootcamp aux premiers projets.
+- [Pourquoi un pipeline RAG, c'est d'abord un problème de données](https://alexgmathieu.github.io/content/blog/rag-probleme-de-donnees.md): retour d'expérience, environ 80% du temps passé sur le parsing et la normalisation des données.
+
+## Compétences
+
+- IA opérationnel : Python (intermédiaire), API OpenAI et Anthropic, prompt engineering.
+- En apprentissage : RAG (pipeline complet), ChromaDB, FastAPI, Git/GitHub.
+- Marketing B2B industriel : stratégie et positionnement, marketing digital (SEO, marketing automation, Google Analytics), contenu technique bilingue FR/EN, méthodes d'innovation (Lean Startup, Design Thinking).
+
+## Liens
+
+- [GitHub](https://github.com/AlexGMathieu)
+- [LinkedIn](https://linkedin.com/in/alexandre-g-mathieu)
+
+## Optional
+
+- [Accueil du site](https://alexgmathieu.github.io/)
