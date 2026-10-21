@@ -4,6 +4,7 @@ import { renderToString } from 'react-dom/server';
 import App from './App.jsx';
 
 export { parseMarkdown } from './hooks/useMarkdownPage.js';
+export { markdownPageMeta, SITE } from './page-meta.js';
 
 export function render() {
   return renderToString(<App />);

@@ -4,12 +4,15 @@ import { Hero, About, Projects } from './components/home-top';
 import { CV, Blog, Contact } from './components/home-bottom';
 import { ProjectDetailInner, BlogDetail } from './components/detail-pages';
 import { CookieBanner } from './components/cookie-banner';
+import { HOME_META, applyPageMeta } from './page-meta';
 
 // ─── URL helpers ────────────────────────────────────────────────────────────
 
+// Trailing slash: same URL as the prerendered page, the canonical and the
+// sitemap (GitHub Pages redirects /blog/slug to /blog/slug/).
 function routeToUrl(route) {
-  if (route.name === 'project') return `/project/${route.id}`;
-  if (route.name === 'blog')    return `/blog/${route.slug}`;
+  if (route.name === 'project') return `/project/${route.id}/`;
+  if (route.name === 'blog')    return `/blog/${route.slug}/`;
   return '/';
 }
 
@@ -56,6 +59,11 @@ export default function App() {
     window.history.pushState(next, '', routeToUrl(next));
     setRoute(next);
   }, []);
+
+  // Detail pages set their own <head> once their Markdown is loaded.
+  React.useEffect(() => {
+    if (route.name === 'home') applyPageMeta(HOME_META);
+  }, [route.name]);
 
   // Scroll to anchor after returning to home (e.g. "← Retour aux projets").
   React.useEffect(() => {

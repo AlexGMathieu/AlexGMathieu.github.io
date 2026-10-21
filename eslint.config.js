@@ -19,6 +19,11 @@ export default defineConfig([
     },
   },
   {
+    // Build-time SSR entry: never hot-reloaded, exports helpers for prerender.mjs
+    files: ['src/entry-server.jsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
+  {
     // Build-time Node scripts
     files: ['scripts/**/*.mjs'],
     languageOptions: { globals: globals.node },

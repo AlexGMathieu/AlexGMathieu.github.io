@@ -50,11 +50,17 @@
         var q = params.get('q');
         var url = decodeURIComponent(p) + (q ? '?' + decodeURIComponent(q) : '');
         window.history.replaceState(null, '', url);
+        // #root contient le prérendu de l'accueil, pas celui de cette URL :
+        // le script placé juste après #root le vide avant le premier rendu.
+        window.__SPA_REDIRECT__ = true;
       })();
     </script>
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      if (window.__SPA_REDIRECT__) document.getElementById('root').textContent = '';
+    </script>
     <noscript>
       <h1>Alexandre Mathieu, développeur d'applications IA</h1>
       <p>

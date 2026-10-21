@@ -97,6 +97,8 @@ export function useMarkdownPage(url) {
       .then((text) => {
         if (cancelled) return;
         const { frontmatter, sections } = parseMarkdown(text);
+        // A dev server answers a missing .md with index.html and a 200 status.
+        if (sections.length === 0) throw new Error('No Markdown sections');
         setState({ status: 'ok', frontmatter, sections });
       })
       .catch(() => {

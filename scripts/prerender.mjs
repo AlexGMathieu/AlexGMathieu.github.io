@@ -8,8 +8,8 @@
 //   sitemap.xml                 generated from the same list of routes
 //
 // GitHub Pages serves these files with a 200 status, so crawlers and LLMs get
-// the full text without running any JavaScript. In a browser, React mounts over
-// the same markup, so nothing changes visually.
+// the full text without running any JavaScript. In a browser, React hydrates
+// the same markup (src/main.jsx), so nothing changes visually.
 
 import fs from 'node:fs';
 import path from 'node:path';
@@ -18,15 +18,13 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const ssrEntry = path.join(root, 'dist-ssr', 'entry-server.js');
-const SITE = 'https://alexgmathieu.github.io';
-const SUFFIX = 'Alexandre Mathieu';
 
 // Minimal browser stand-in: App reads window.location and window.history.state
 // while rendering. Effects and event handlers never run on the server.
 const fakeWindow = { location: { pathname: '/', search: '' }, history: { state: null } };
 globalThis.window = fakeWindow;
 
-const { render, parseMarkdown } = await import(pathToFileURL(ssrEntry).href);
+const { render, parseMarkdown, markdownPageMeta, SITE } = await import(pathToFileURL(ssrEntry).href);
 
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8');
 if (!template.includes('<div id="root"></div>')) {
@@ -37,33 +35,6 @@ if (!template.includes('<div id="root"></div>')) {
 
 const escAttr = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 const escText = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
-
-function plainText(html) {
-  return html
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&[a-z]+;/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-// The Markdown parser can return an empty first section (text before the first
-// "## " heading), so take the first section that has some text.
-function firstParagraph(sections) {
-  for (const s of sections) {
-    const text = plainText(s.html);
-    if (text) return text;
-  }
-  return '';
-}
-
-function truncate(text, max = 160) {
-  if (text.length <= max) return text;
-  const cut = text.slice(0, max - 1);
-  return cut.slice(0, cut.lastIndexOf(' ')).replace(/[,;:.\s]+$/, '') + '…';
-}
 
 // Replace the value of one attribute, and fail loudly if the tag is missing.
 function setAttr(html, pattern, value, label) {
@@ -87,7 +58,7 @@ function buildPage({ route, meta, cache }) {
   globalThis.__MD_CACHE__ = cache;
 
   let html = template.replace('<div id="root"></div>', () => `<div id="root">${render()}</div>`);
-  html = withMeta(html, meta);
+  if (meta) html = withMeta(html, meta);
 
   if (Object.keys(cache).length > 0) {
     // "<" is escaped so that article text can never close the script tag.
@@ -146,30 +117,19 @@ pages.push({
 sitemap.push({ loc: `${SITE}/` });
 
 for (const p of readMarkdownDir('projets', '/content/projets')) {
-  const fm = p.parsed.frontmatter;
-  const description = truncate(plainText(fm.lede || '') || firstParagraph(p.parsed.sections));
   pages.push({
     route: `/project/${p.id}`,
-    meta: {
-      title: `${fm.titre} | ${SUFFIX}`,
-      description,
-      url: `${SITE}/project/${p.id}/`,
-    },
+    meta: markdownPageMeta(`/project/${p.id}`, p.parsed),
     cache: { [p.url]: p.parsed },
   });
   sitemap.push({ loc: `${SITE}/project/${p.id}/` });
 }
 
 for (const p of readMarkdownDir('blog', '/content/blog')) {
-  const fm = p.parsed.frontmatter;
-  const published = isoDate(fm.date);
+  const published = isoDate(p.parsed.frontmatter.date);
   pages.push({
     route: `/blog/${p.id}`,
-    meta: {
-      title: `${fm.titre} | ${SUFFIX}`,
-      description: truncate(firstParagraph(p.parsed.sections)),
-      url: `${SITE}/blog/${p.id}/`,
-    },
+    meta: markdownPageMeta(`/blog/${p.id}`, p.parsed),
     cache: { [p.url]: p.parsed },
   });
   // Unpublished drafts ("à paraître") get a page but stay out of the sitemap.
@@ -179,12 +139,7 @@ for (const p of readMarkdownDir('blog', '/content/blog')) {
 // ─── Write ──────────────────────────────────────────────────────────────────
 
 for (const page of pages) {
-  const meta = page.meta ?? (() => {
-    const title = template.match(/<title>([\s\S]*?)<\/title>/)[1].replace(/&amp;/g, '&');
-    const description = template.match(/name="description"\s+content="([^"]*)"/)[1].replace(/&amp;/g, '&').replace(/&quot;/g, '"');
-    return { title, description, url: `${SITE}/` };
-  })();
-  const written = writePage(page.route, buildPage({ route: page.route, meta, cache: page.cache }));
+  const written = writePage(page.route, buildPage(page));
   console.log(`prerender: ${page.route.padEnd(48)} → dist/${written}`);
 }
 

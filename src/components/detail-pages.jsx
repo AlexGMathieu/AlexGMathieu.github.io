@@ -2,6 +2,7 @@
 import React from 'react';
 import { Reveal, Tag } from './components';
 import { useMarkdownPage } from '../hooks/useMarkdownPage';
+import { applyPageMeta, markdownPageMeta } from '../page-meta';
 
 // ─── Shared layout ───────────────────────────────────────────────────────────
 
@@ -152,6 +153,10 @@ export const ProjectDetailInner = ({ id, onNavigate }) => {
 
   React.useEffect(() => { window.scrollTo(0, 0); }, [id]);
 
+  React.useEffect(() => {
+    if (status === 'ok') applyPageMeta(markdownPageMeta(`/project/${id}`, { frontmatter: fm, sections }));
+  }, [status, id, fm, sections]);
+
   if (status === 'loading') return <PageLoader />;
   if (status === 'error')   return <PageError label="projet" onNavigate={onNavigate} />;
 
@@ -239,6 +244,10 @@ export const BlogDetail = ({ slug, onNavigate }) => {
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, [slug]);
+
+  React.useEffect(() => {
+    if (status === 'ok') applyPageMeta(markdownPageMeta(`/blog/${slug}`, { frontmatter: fm, sections }));
+  }, [status, slug, fm, sections]);
 
   if (status === 'loading') return <PageLoader />;
   if (status === 'error')   return <PageError label="article" onNavigate={onNavigate} />;
