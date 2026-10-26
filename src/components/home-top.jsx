@@ -13,7 +13,7 @@ export const Hero = () =>
           </div>
           <div className="hero-status">
             <span className="dot" />
-            <span>Disponible — Sept 2026</span>
+            <span>Disponible immédiatement</span>
           </div>
           <h1 className="hero-title">
             Développeur
@@ -23,8 +23,8 @@ export const Hero = () =>
           <p className="hero-mono">
             J'ai passé 12 ans dans le marketing industriel.
             <br />
-            Puis ChatGPT est arrivé et j'ai décidé de rejoindre
-            le côté obscur plutôt que de me faire bouffer.
+            Puis ChatGPT est arrivé et j'ai décidé de passer
+            du côté obscur&nbsp;: construire plutôt que subir.
           </p>
           <div className="hero-ctas">
             <button
@@ -151,7 +151,7 @@ export const About = () =>
             <div className="cs-footer">
               <div className="cs-stat">
                 <span className="cs-stat-label">Terrain</span>
-                <span className="cs-stat-value">14 ans</span>
+                <span className="cs-stat-value">12 ans</span>
               </div>
               <div className="cs-stat">
                 <span className="cs-stat-label">Secteurs</span>
@@ -167,7 +167,7 @@ export const About = () =>
       </div>
       <div className="section-meta">
         <span>section/02 · about</span>
-        <span>last-updated 2026-05</span>
+        <span>last-updated 2026-10</span>
       </div>
     </div>
   </section>;

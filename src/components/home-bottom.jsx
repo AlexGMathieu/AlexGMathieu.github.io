@@ -35,10 +35,10 @@ export const CV = ({ onOpenProject }) => {
               ))}
             </div>
             <a
-              href="#"
+              href="/assets/cv-alexandre-mathieu.pdf"
               className="btn btn-secondary cv-download"
-              onClick={(e) => {
-                e.preventDefault();
+              download="CV-Alexandre-Mathieu.pdf"
+              onClick={() => {
                 window.gtag?.('event', 'cv_download');
               }}
               style={{ width: "100%", justifyContent: "space-between" }}
@@ -84,7 +84,7 @@ const CVProfil = () => (
         marginTop: 24,
       }}
     >
-      Disponible en Bourgogne et Rhône-Alpes à partir de septembre 2026.
+      Disponible en Bourgogne et Rhône-Alpes.
     </p>
   </Reveal>
 );
@@ -641,14 +641,13 @@ export const Contact = () => {
   return (
     <section className="section" id="contact">
       <div className="container">
-        <SectionHead num="07" title="Contact" kicker="dispo sept 2026" />
+        <SectionHead num="07" title="Contact" kicker="dispo immédiatement" />
         <div className="contact-grid">
           <Reveal>
             <h3 className="contact-lead">Construisons quelque&nbsp;chose.</h3>
             <p className="contact-sub">
               Je suis en recherche active d'un poste de développeur
-              d'applications IA, disponible en France (Bourgogne et Rhône-Aples) à partir de septembre
-              2026.
+              d'applications IA, disponible en France (Bourgogne et Rhône-Alpes).
             </p>
             <div className="contact-links">
               <EmailObfuscated className="contact-link" />
@@ -752,7 +751,7 @@ export const Contact = () => {
         </div>
         <div className="section-meta">
           <span>section/07 · contact</span>
-          <span>Disponible CDI · Bourgogne / Rhône-Alpes · sept 2026</span>
+          <span>Disponible CDI · Bourgogne / Rhône-Alpes</span>
         </div>
       </div>
     </section>
